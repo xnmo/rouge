@@ -19,20 +19,25 @@ class PlayerCharacter:
 	def __init__(self, name, race):
 		self.name = name
 		self.race = race
-		self.might = random.randint(1, 6) + random.randint(1, 6) + random.randint(1, 6)
-		self.hope = random.randint(1, 6) + random.randint(1, 6) + random.randint(1, 6)
-		self.wit = random.randint(1, 6) + random.randint(1, 6) + random.randint(1, 6)
-		self.luck = random.randint(1, 6) + random.randint(1, 6) + random.randint(1, 6)
+                self.might = self.threeDSix() 
+		self.hope = self.threeDSix()	
+                self.wit = self.threeDSix()
+		self.luck = self.threeDSix()
 		self.hitpoints = random.randint(5,  5 + self.might)  
 		
 		self.info = ['  NAME | ' + self.name,
-					 '  RACE | ' + str(self.race),
-					 '    HP | ' + str(self.hitpoints),
-				     ' MIGHT | ' + str(self.might),
-					 '  HOPE | ' + str(self.hope),
-					 '   WIT | ' + str(self.wit),
-					 '  LUCK | ' + str(self.luck)]	
+			     '  RACE | ' + str(self.race),
+	                     '    HP | ' + str(self.hitpoints),
+			     ' MIGHT | ' + str(self.might),
+			     '  HOPE | ' + str(self.hope),
+			     '   WIT | ' + str(self.wit),
+			     '  LUCK | ' + str(self.luck)]	
 
+        def threeDSix(self):
+             self.x = (random.randint(1, 6) + random.randint(1, 6) + 
+             random.randint(1, 6))
+             return self.x
+ 
 	def drawTo(self, window, x, y):
 		for attribute in self.info:
 			window.move(y, x)
