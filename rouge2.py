@@ -11,8 +11,6 @@ try:
     win = curses.newwin(0,0)
     win.addstr(0,2,'What is thy name? ')
     pcname = win.getstr()
-    win.refresh()
-    
     win.clear()
     win.refresh()
     y = 0
