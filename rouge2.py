@@ -1,8 +1,6 @@
 import curses
 import random
-import os
 
-os.system('clear')
 races = ['human',
         'flying eyeball',
         'robot',
@@ -29,5 +27,5 @@ except:
 finally:
     pass
 curses.endwin()
-print pcname
-print races[int(racechoice)]
+#print pcname
+#print races[int(racechoice)]
