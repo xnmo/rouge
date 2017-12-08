@@ -5,7 +5,9 @@ races = ['Human',
         'Flying Eyeball',
         'Robot',
         'Dino-person']
+
 curses.initscr()
+
 try:
     win = curses.newwin(0,0)
     win.addstr(0,2,'What is thy name? ')
@@ -19,23 +21,24 @@ try:
     win.addstr(6,2, 'Choose thine race: ')
     racechoice = win.getstr()
     
+    # starts the pc in a random position
     pcy = random.randint(1,10)
     pcx = random.randint(1,10)
-
+    # hides the cursor
     curses.curs_set(0)
+    # draws the playfield and UI
     while True:
-        # clears screen and draws character
         win.clear()
         win.refresh()
         liney = 0
         while liney != 21:
-            win.addstr(liney, 41 , '#')
-            win.addstr(liney, 0, '#')
+            win.addch(liney, 41 , 35)
+            win.addch(liney, 0, 35)
             liney += 1
         linex = 0
         while linex != 41:
-                win.addstr(20, linex, '#')
-                win.addstr(0, linex, '#')
+                win.addch(20, linex, 35)
+                win.addch(0, linex, 35)
                 linex += 1
         win.addstr(0, 43, 'NAME: ' + str(pcname))
         win.addstr(1, 43, 'RACE: ' + str(races[int(racechoice)]))
@@ -45,39 +48,45 @@ try:
         win.addstr(7, 43, 'h-+-l')
         win.addstr(8, 43, ' /|\\')
         win.addstr(9, 43, 'b j n')
+        win.addstr(12, 43, 'position x, y: ' + (str(pcx)+','+ str(pcy)))
 
-
+        # moves cursor to the pc's position, then draws them
         win.move(pcy,pcx)
         win.addch(ord('@'))
-        
-        # deals with movement 
+
+        # moves the cursor away from the player character
+        # if the cursor is in the checked area it will not
+        # see an empty space there
+        win.move(0,0
+                ) 
+        # deals with movement, checks for an empty space 
         movement = win.getch()
         if movement == 104:
-            if pcx > 1:
+            if win.inch(pcy,pcx-1) == 32:
                 pcx -= 1
         elif movement == 106:
-            if pcy < 19:
+            if win.inch(pcy+1,pcx) == 32:
                 pcy += 1
         elif movement == 107:
-            if pcy > 1:
+            if win.inch(pcy-1,pcx) == 32:
                 pcy -= 1
         elif movement == 108:
-            if pcx < 40:
+            if win.inch(pcy,pcx+1) == 32:    
                 pcx += 1
         elif movement == 121:
-            if pcy > 1 and pcx > 1:
+            if win.inch(pcy-1,pcx-1) == 32:
                 pcx -= 1
                 pcy -= 1
         elif movement == 117:
-            if pcy > 1 and pcx < 40:
+            if win.inch(pcy-1,pcx+1) == 32:
                 pcx += 1
                 pcy -= 1
         elif movement == 98:
-            if pcy < 19 and pcx > 1:
+            if win.inch(pcy+1,pcx-1) == 32:
                 pcx -= 1
                 pcy += 1
         elif movement == 110:
-            if pcy < 19 and pcx < 40:
+            if win.inch(pcy+1,pcx+1) == 32:
                 pcx += 1
                 pcy += 1
 
@@ -85,7 +94,5 @@ except:
     pass
 finally:
     curses.endwin()
-#print pcname
-#print races[int(racechoice)]
 #y 121 | u 117 | b 98 | n 110
 # h 104 || j 106 || k 107 || l 108
